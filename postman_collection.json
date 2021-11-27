@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "d3b4abda-3c34-4135-8977-b9db0c9bad4a",
+		"name": "laravel_basic_nivell_3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "index jugador",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{port}}/jugador",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"jugador"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "show jugador",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('aleatorio', Math.floor(Math.random() * 28 + 1));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{port}}/jugador/{{aleatorio}}",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"jugador",
+						"{{aleatorio}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete jugador",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('aleatorio', Math.floor(Math.random() * 28 + 1));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{port}}/jugador/destroy?_method=delete&id={{aleatorio}}",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"jugador",
+						"destroy"
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "delete"
+						},
+						{
+							"key": "id",
+							"value": "{{aleatorio}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update jugador",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('aleatorio', Math.floor(Math.random() * 28 + 1));",
+							"pm.globals.set('aleatorio_equipo', Math.floor(Math.random() * 20 + 1));",
+							"pm.globals.set('aleatorio_posicion', ['entrenador','portero','defensa','centrocampista','delantero'][Math.floor(Math.random() * 5)]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{port}}/jugador/update?_method=put&id={{aleatorio}}&id_equipo={{aleatorio_equipo}}&nombre={{$randomFirstName}} {{$randomLastName}}&posicion={{aleatorio_posicion}}",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"jugador",
+						"update"
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "put"
+						},
+						{
+							"key": "id",
+							"value": "{{aleatorio}}"
+						},
+						{
+							"key": "id_equipo",
+							"value": "{{aleatorio_equipo}}"
+						},
+						{
+							"key": "nombre",
+							"value": "{{$randomFirstName}} {{$randomLastName}}"
+						},
+						{
+							"key": "posicion",
+							"value": "{{aleatorio_posicion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store jugador",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('aleatorio', Math.floor(Math.random() * 28 + 1));",
+							"pm.globals.set('aleatorio_equipo', Math.floor(Math.random() * 20 + 1));",
+							"pm.globals.set('aleatorio_posicion', ['entrenador','portero','defensa','centrocampista','delantero'][Math.floor(Math.random() * 5)]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{port}}/jugador/store?id_equipo={{aleatorio_equipo}}&nombre={{$randomFirstName}} {{$randomLastName}}&posicion={{aleatorio_posicion}}",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"jugador",
+						"store"
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "post",
+							"disabled": true
+						},
+						{
+							"key": "id_equipo",
+							"value": "{{aleatorio_equipo}}"
+						},
+						{
+							"key": "nombre",
+							"value": "{{$randomFirstName}} {{$randomLastName}}"
+						},
+						{
+							"key": "posicion",
+							"value": "{{aleatorio_posicion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

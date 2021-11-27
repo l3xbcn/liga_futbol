@@ -1,0 +1,47 @@
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+@tailwind base;  
+@tailwind components;  
+@tailwind utilities;
+
+@layer base {
+
+    body{ @apply flex flex-col m-0; height:100vh; }
+
+    footer{ @apply mt-auto; }    
+
+    .debug { @apply font-mono text-white }
+
+    header, footer { @apply bg-green-900 }
+    footer { @apply text-xl font-black text-green-200 text-center }
+    header div.header-logo { @apply flex w-full bg-no-repeat bg-bottom }
+    header div.header-logo span { @apply text-8xl font-black tracking-tighter text-white text-opacity-60 mb-2 mt-auto mx-auto }
+
+    div.topbar { @apply flex justify-between bg-green-700 }
+
+    div#ProfileDropDown { @apply rounded hidden shadow-md bg-white absolute mt-12 mr-1 }
+    div#ProfileDropDown ul li { @apply no-underline px-4 py-2 block text-black hover:bg-gray-300 }
+    div#ProfileDropDown ul li hr { @apply border-t mx-2 border-gray-500 }
+
+    aside { @apply min-w-max bg-gray-200 }
+    aside ul li { @apply w-full h-full py-3 px-2 border-b }
+    aside ul li a { @apply font-sans text-sm no-underline }
+    aside ul li a span i { @apply float-left mx-2 }
+    aside ul li:hover { @apply bg-green-100 }
+    .fa-angle-right { @apply float-right ml-6 }
+
+    main div.title { @apply bg-green-200 px-2 py-3 border-solid border-gray-200 border-b text-4xl text-center w-full mb-8 }
+    main div.content { @apply flex-row mb-2 border-solid border-gray-300 rounded border shadow-sm w-full }
+
+    .mensaje { @apply flex-row bg-gray-200 border-t-4 border-gray-500 border-solid rounded-b text-gray-900 px-4 py-3 mb-4 rounded shadow-sm  }
+    .mensaje svg { @apply fill-current h-6 w-6 text-gray-500 mr-4 inline-block float-left }
+
+    input[type=text], select { @apply w-full }
+    .form-error { @apply inline-block text-red-500 }
+
+    table { @apply table-fixed w-full }
+    table td { @apply border border-gray-200 p-2 }
+    table th { @apply bg-green-800 text-green-200 }
+
+    table a, table form button { @apply cursor-pointer rounded text-white p-2 m-2 hover:bg-opacity-50  }
+    button.create { @apply cursor-pointer rounded bg-green-500 text-white font-bold py-2 px-4 hover:bg-opacity-50 }
+}   
