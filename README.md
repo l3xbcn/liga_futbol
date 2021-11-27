@@ -1,4 +1,4 @@
-# liga_futbol
+# liga_futbol - Sprint Laravel Básic de la itacademy
 Implementados todos los niveles del ejercicio
 - sql_liga_futbol.gz -> Modelo con datos de relleno
 - postman_collection.json -> Colección postman de tests
