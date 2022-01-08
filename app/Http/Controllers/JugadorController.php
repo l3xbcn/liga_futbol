@@ -14,9 +14,21 @@ class JugadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($mensaje = '')
+    public function index(Request $request, $mensaje = '')
     {
-        $jugadores = Jugador::all();
+        $search =  $request->input('q');
+        if($search!=""){
+            $jugadores = Jugador
+                ::where('name', 'like', '%'.$search.'%')
+                ->paginate(10)
+                ->withQueryString()
+                ->withPath('/jugador');
+        }
+        else{
+            $jugadores = Jugador
+                ::paginate(10)
+                ->withPath('/jugador');
+        }
         return view('jugador.index', compact('jugadores', 'mensaje'));        
     }
 
@@ -27,7 +39,8 @@ class JugadorController extends Controller
      */
     public function create()
     {
-        $equipos = Equipo::all();
+        $equipos = Equipo
+            ::all();
         return view('jugador.create', compact('equipos'));
     }
 
@@ -40,19 +53,19 @@ class JugadorController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nombre' => 'required|unique:jugadors,nombre|min:3|max:50|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|unique:jugadors,name|min:3|max:50|regex:/^[\pL\s\-]+$/u',
             'posicion' => 'required',
             'id_equipo' => 'required'
         ]);
         
         $jugador = new Jugador();
         $jugador->id_equipo = $request->id_equipo;
-        $jugador->nombre = $request->nombre;
+        $jugador->name = $request->name;
         $jugador->posicion = $request->posicion;
         $jugador->save();
-        $mensaje = "Creado jugador $jugador->nombre";
+        $mensaje = "Creado jugador $jugador->name";
         event(new ModeloEvento($mensaje));
-        return $this->index($mensaje);
+        return $this->index($request, $mensaje);
     }
 
     /**
@@ -63,7 +76,8 @@ class JugadorController extends Controller
      */
     public function show($id = null)
     {
-        $jugador = Jugador::find($id);
+        $jugador = Jugador
+            ::find($id);
         return view('jugador.show', compact('jugador'));
     }
 
@@ -75,8 +89,10 @@ class JugadorController extends Controller
      */
     public function edit($id)
     {
-        $jugador = Jugador::find($id);
-        $equipos = Equipo::all();
+        $jugador = Jugador
+            ::find($id);
+        $equipos = Equipo
+            ::all();
         return view('jugador.edit', compact('jugador', 'equipos'));
     }
 
@@ -90,22 +106,19 @@ class JugadorController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'nombre' => 'required|min:3|max:50|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|min:3|max:50|regex:/^[\pL\s\-]+$/u',
             'posicion' => 'required|min:1',
             'id_equipo' => 'required|min:1'
         ]);
-        $jugador = Jugador::find($request->id);
+        $jugador = Jugador
+            ::find($request->id);
         $jugador->id_equipo = $request->id_equipo;
-        $jugador->nombre = $request->nombre;
+        $jugador->name = $request->name;
         $jugador->posicion = $request->posicion;
         $jugador->save();
-        $mensaje = "Editado jugador $jugador->nombre";
+        $mensaje = "Editado jugador $jugador->name";
         event(new ModeloEvento($mensaje));
-        return $this->index($mensaje);
-        /*
-        $jugadores = Jugador::all();
-        return view('jugador.index', compact('jugadores', 'mensaje'));
-        */
+        return $this->index($request, $mensaje);
     }
 
     /**
@@ -119,6 +132,6 @@ class JugadorController extends Controller
         Jugador::destroy($request->id);
         $mensaje = "Eliminado jugador con id: $request->id";
         event(new ModeloEvento($mensaje));
-        return $this->index($mensaje);
+        return $this->index($request, $mensaje);
     }
 }

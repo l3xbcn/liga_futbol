@@ -31,7 +31,7 @@
                         <?php
                             $selected = ( $equipo->id == ( $jugador->id_equipo ?? null) ? 'selected' : '');
                         ?>
-                        <option value="{{ $equipo->id }}"<?=$selected?>>{{ $equipo->nombre }}</option>
+                        <option value="{{ $equipo->id }}"<?=$selected?>>{{ $equipo->name }}</option>
                         @endforeach
                     </select>
                 </td>
@@ -43,14 +43,14 @@
             </tr>
             <tr>
                 <td>
-                    Nombre
+                    name
                 </td>
                 <td>
-                    <input type="text" name="nombre" value="{{ ( $jugador->nombre ?? null ) }}" class="@error('nombre') is-invalid @enderror">
+                    <input type="text" name="name" value="{{ ( $jugador->name ?? null ) }}" class="@error('name') is-invalid @enderror">
                 </td>
                 <td>
-                    @error('nombre')
-                        <div class="form-error">* Introduce un nombre entre 3-50 carácteres. Sólo se aceptan letras, espacios y guiones</div>
+                    @error('name')
+                        <div class="form-error">* Introduce un name entre 3-50 carácteres. Sólo se aceptan letras, espacios y guiones</div>
                     @enderror
                 </td>
             </tr>

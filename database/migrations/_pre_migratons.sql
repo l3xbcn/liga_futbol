@@ -1,0 +1,15 @@
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario1','usuario1@localhost',encrypt('usuario1'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario2','usuario2@localhost',encrypt('usuario2'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario3','usuario3@localhost',encrypt('usuario3'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario4','usuario4@localhost',encrypt('usuario4'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario5','usuario5@localhost',encrypt('usuario5'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario6','usuario6@localhost',encrypt('usuario6'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario7','usuario7@localhost',encrypt('usuario7'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario8','usuario8@localhost',encrypt('usuario8'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario9','usuario9@localhost',encrypt('usuario9'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario10','usuario10@localhost',encrypt('usuario10'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario11','usuario11@localhost',encrypt('usuario11'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario12','usuario12@localhost',encrypt('usuario12'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario13','usuario13@localhost',encrypt('usuario13'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario14','usuario14@localhost',encrypt('usuario14'),now(),now(),now());
+INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES ('Nombre Usuario15','usuario15@localhost',encrypt('usuario15'),now(),now(),now());

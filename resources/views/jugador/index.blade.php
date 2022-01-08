@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.common')
+@section('model', 'jugador')
 @section('title', 'Jugadores | Índice')
 @section('content')
 <?php if (!empty($mensaje)) { ?>
@@ -10,8 +11,7 @@
     </div>
 <?php } ?>            
 
-<a href="{{ request()->getSchemeAndHttpHost() }}/jugador/create"><button class="create float-right">Crear un nuevo jugador</button></a>
-    <table>
+    <table id="indice">
         <thead>
         <tr>
             <th class="w-1/12 ">ID</th>
@@ -25,9 +25,9 @@
             @foreach ($jugadores as $jugador)
             <tr>
                 <td>{{ $jugador->id }}</td>
-                <td>{{ $jugador->nombre }}</td>
+                <td>{{ $jugador->name }}</td>
                 <td>{{ $jugador->posicion }}</td>
-                <td>{{ $jugador->equipo->nombre }}</td>
+                <td>{{ $jugador->equipo->name }}</td>
                 <td>
                     <a href="{{ request()->getSchemeAndHttpHost() }}/jugador/<?=$jugador->id?>" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
@@ -45,5 +45,18 @@
             </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <th class="w-1/12 ">ID</th>
+                <th class="w-3/12">Nombre</th>
+                <th class="w-3/12">Posición</th>
+                <th class="w-3/12">Equipo</th>
+                <th class="w-2/12">Acciones</th>
+            </tr>
+        </tfoot>        
     </table>
+    <script>
+    </script>    
+
+    {{ $jugadores->links() }}
 @endsection

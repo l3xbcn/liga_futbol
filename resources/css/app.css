@@ -1,7 +1,7 @@
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
-@tailwind base;  
-@tailwind components;  
-@tailwind utilities;
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @layer base {
 
@@ -43,5 +43,6 @@
     table th { @apply bg-green-800 text-green-200 }
 
     table a, table form button { @apply cursor-pointer rounded text-white p-2 m-2 hover:bg-opacity-50  }
+    
     button.create { @apply cursor-pointer rounded bg-green-500 text-white font-bold py-2 px-4 hover:bg-opacity-50 }
-}   
+}

@@ -11,7 +11,7 @@
         </tr>
         <tr>
             <td>Nombre</td>
-            <td>{{ $jugador->nombre }}</td>
+            <td>{{ $jugador->name }}</td>
         </tr>
         <tr>
             <td>Posición</td>
@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td>Equipo</td>
-            <td>{{ $jugador->equipo->nombre }}</td>
+            <td>{{ $jugador->equipo->name }}</td>
         </tr>
         <tr>
             <td>Acciones</td>

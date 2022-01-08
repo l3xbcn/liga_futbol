@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.common')
 @section('title', 'Jugador - Crear')
 @section('content')
 
