@@ -34,6 +34,7 @@
                     @endforeach
                 </td>
                 <td>
+                    @can('admin')
                     <a href="{{ request()->getSchemeAndHttpHost() }}/user/<?=$user->id?>" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
@@ -46,6 +47,7 @@
                         <input type="hidden" name="id" value="{{ ( $user->id ?? null ) }}" />
                         <button type="submit" value="" class="bg-red-500 fas fa-trash"></button>
                     </form>
+                    @endcan
                 </td>
             </tr>
             @endforeach

@@ -29,6 +29,7 @@
                 <td>{{ $jugador->posicion }}</td>
                 <td>{{ $jugador->equipo->name }}</td>
                 <td>
+                    @can('edit')
                     <a href="{{ request()->getSchemeAndHttpHost() }}/jugador/<?=$jugador->id?>" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
@@ -42,6 +43,7 @@
                         <button type="submit" value="" class="bg-red-500 fas fa-trash"></button>
                     </form>
                 </td>
+                @endcan
             </tr>
             @endforeach
         </tbody>

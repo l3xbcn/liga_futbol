@@ -36,7 +36,9 @@ Route::put('jugador/update', [JugadorController::class, 'update']);
 Route::delete('jugador/destroy', [JugadorController::class, 'destroy']);
 Route::resource('jugador', JugadorController::class)->names('jugador');
 
-Route::post('user/store', [UserController::class, 'store']);
-Route::put('user/update', [UserController::class, 'update']);
-Route::delete('user/destroy', [UserController::class, 'destroy']);
-Route::resource('user', UserController::class)->names('jugador');
+Route::get('user', [UserController::class, 'index'])->middleware('can:edit');
+Route::get('user/{user}', [UserController::class, 'show'])->middleware('can:admin');
+Route::get('user/{user}/edit', [UserController::class, 'edit'])->middleware('can:admin');
+Route::post('user/store', [UserController::class, 'store'])->middleware('can:admin');
+Route::put('user/update', [UserController::class, 'update'])->middleware('can:admin');
+Route::delete('user/destroy', [UserController::class, 'destroy'])->middleware('can:admin');

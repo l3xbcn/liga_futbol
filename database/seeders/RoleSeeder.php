@@ -15,8 +15,14 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $role1 = Role::create(['name'=>'Admin']);
-	    $role2 = Role::create(['name'=>'Editor']);
-        $role3 = Role::create(['name'=>'Viewer']);
+        $role_admin = Role::create(['name'=>'Admin']);
+	    $role_editor = Role::create(['name'=>'Editor']);
+        $role_viewer = Role::create(['name'=>'Viewer']);
+        $permission_admin = Permission::create(['name'=>'admin']);
+        $permission_edit = Permission::create(['name'=>'edit']);
+        $role_admin->givePermissionTo([$permission_admin, $permission_edit]);
+        $role_editor->givePermissionTo($permission_edit);
+
+
 	}
 }
