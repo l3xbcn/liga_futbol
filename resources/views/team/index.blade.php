@@ -1,6 +1,6 @@
 @extends('layouts.common')
-@section('model', 'jugador')
-@section('title', 'Jugadores | Índice')
+@section('model', 'team')
+@section('title', 'Equipos | Índice')
 @section('content')
 <?php if (!empty($mensaje)) { ?>
     <div class="mensaje" role="alert">
@@ -16,30 +16,31 @@
         <tr>
             <th class="w-1/12 ">ID</th>
             <th class="w-3/12">Nombre</th>
-            <th class="w-3/12">Posición</th>
-            <th class="w-3/12">Equipo</th>
-            <th class="w-2/12">Acciones</th>
+            <th class="w-3/12">Estadio</th>
+            <th class="w-3/12">Acciones</th>
         </tr>
         </thead>
         <tbody>
-            @foreach ($jugadores as $jugador)
+            @foreach ($teams as $team)
             <tr>
-                <td>{{ $jugador->id }}</td>
-                <td>{{ $jugador->name }}</td>
-                <td>{{ $jugador->posicion }}</td>
-                <td>{{ $jugador->equipo->name }}</td>
+                <td>{{ $team->id }}</td>
+                <td>{{ $team->name }}</td>
+                <td>{{ $team->stadium }}</td>
                 <td>
+                    <a href="{{ request()->getSchemeAndHttpHost() }}/team/<?=$team->id?>/players" class="bg-blue-500 ">
+                        <i class="fas fa-users"></i>
+                    </a>
                     @can('edit')
-                    <a href="{{ request()->getSchemeAndHttpHost() }}/jugador/<?=$jugador->id?>" class="bg-blue-500 ">
+                    <a href="{{ request()->getSchemeAndHttpHost() }}/team/<?=$team->id?>" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
-                    <a href="{{ request()->getSchemeAndHttpHost() }}/jugador/<?=$jugador->id?>/edit" class="bg-yellow-500">
+                    <a href="{{ request()->getSchemeAndHttpHost() }}/team/<?=$team->id?>/edit" class="bg-yellow-500">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form class="inline-block" method="POST" action="{{ request()->getSchemeAndHttpHost() }}/jugador/destroy">
+                    <form class="inline-block" method="POST" action="{{ request()->getSchemeAndHttpHost() }}/team/destroy">
                         @csrf  
                         @method("delete")
-                        <input type="hidden" name="id" value="{{ ( $jugador->id ?? null ) }}" />
+                        <input type="hidden" name="id" value="{{ ( $team->id ?? null ) }}" />
                         <button type="submit" value="" class="bg-red-500 fas fa-trash"></button>
                     </form>
                 </td>
@@ -51,14 +52,13 @@
             <tr>
                 <th class="w-1/12 ">ID</th>
                 <th class="w-3/12">Nombre</th>
-                <th class="w-3/12">Posición</th>
-                <th class="w-3/12">Equipo</th>
-                <th class="w-2/12">Acciones</th>
+                <th class="w-3/12">Estadio</th>
+                <th class="w-3/12">Acciones</th>
             </tr>
         </tfoot>        
     </table>
     <script>
     </script>    
 
-    {{ $jugadores->links() }}
+    {{ $teams->links() }}
 @endsection

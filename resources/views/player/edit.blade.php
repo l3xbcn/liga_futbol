@@ -1,7 +1,7 @@
 @extends('layouts.common')
 @section('title', 'Jugador - Editar')
 @section('content')
-@foreach(['jugador.registro', 'jugador.form'] as $view)
+@foreach(['player.registro', 'player.form'] as $view)
     @include($view)
 @endforeach
 @endsection

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\ModeloEvento;
-use App\Models\Jugador;
-use App\Models\Equipo;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
-class JugadorController extends Controller
+class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,18 +17,18 @@ class JugadorController extends Controller
     {
         $search =  $request->input('q');
         if($search!=""){
-            $jugadores = Jugador
+            $teams = Team
                 ::where('name', 'like', '%'.$search.'%')
                 ->paginate(10)
                 ->withQueryString()
-                ->withPath('/jugador');
+                ->withPath('/team');
         }
         else{
-            $jugadores = Jugador
+            $teams = Team
                 ::paginate(10)
-                ->withPath('/jugador');
+                ->withPath('/team');
         }
-        return view('jugador.index', compact('jugadores', 'mensaje'));        
+        return view('team.index', compact('teams', 'mensaje'));        
     }
 
     /**
@@ -39,31 +38,27 @@ class JugadorController extends Controller
      */
     public function create()
     {
-        $equipos = Equipo
-            ::all();
-        return view('jugador.create', compact('equipos'));
+        return view('team.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:jugadors,name|min:3|max:50|regex:/^[\pL\s\-]+$/u',
-            'posicion' => 'required',
-            'id_equipo' => 'required'
+            'name' => 'required|unique:teams,name|min:3|max:50|regex:/^[\pL\s\-]+$/u',
+            'stadium' => 'required|unique:teams,stadium|min:3|max:50|regex:/^[\pL\s\-]+$/u'
         ]);
         
-        $jugador = new Jugador();
-        $jugador->id_equipo = $request->id_equipo;
-        $jugador->name = $request->name;
-        $jugador->posicion = $request->posicion;
-        $jugador->save();
-        $mensaje = "Creado jugador $jugador->name";
+        $team = new Team();
+        $team->name = $request->name;
+        $team->stadium = $request->stadium;
+        $team->save();
+        $mensaje = "Creado team $team->name";
         event(new ModeloEvento($mensaje));
         return $this->index($request, $mensaje);
     }
@@ -76,9 +71,9 @@ class JugadorController extends Controller
      */
     public function show($id = null)
     {
-        $jugador = Jugador
+        $team = Team
             ::find($id);
-        return view('jugador.show', compact('jugador'));
+        return view('team.show', compact('team'));
     }
 
     /**
@@ -89,11 +84,9 @@ class JugadorController extends Controller
      */
     public function edit($id)
     {
-        $jugador = Jugador
+        $team = Team
             ::find($id);
-        $equipos = Equipo
-            ::all();
-        return view('jugador.edit', compact('jugador', 'equipos'));
+        return view('team.edit', compact('team'));
     }
 
     /**
@@ -106,17 +99,15 @@ class JugadorController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|min:3|max:50|regex:/^[\pL\s\-]+$/u',
-            'posicion' => 'required|min:1',
-            'id_equipo' => 'required|min:1'
+            'name' => 'required|unique:teams,name|min:3|max:50|regex:/^[\pL\s\-]+$/u',
+            'stadium' => 'required|unique:teams,stadium|min:3|max:50|regex:/^[\pL\s\-]+$/u'
         ]);
-        $jugador = Jugador
+        $team = Team
             ::find($request->id);
-        $jugador->id_equipo = $request->id_equipo;
-        $jugador->name = $request->name;
-        $jugador->posicion = $request->posicion;
-        $jugador->save();
-        $mensaje = "Editado jugador $jugador->name";
+        $team->name = $request->name;
+        $team->stadium = $request->stadium;
+        $team->save();
+        $mensaje = "Editado team $team->name";
         event(new ModeloEvento($mensaje));
         return $this->index($request, $mensaje);
     }
@@ -129,8 +120,8 @@ class JugadorController extends Controller
      */
     public function destroy(Request $request)
     {
-        Jugador::destroy($request->id);
-        $mensaje = "Eliminado jugador con id: $request->id";
+        Team::destroy($request->id);
+        $mensaje = "Eliminado team con id: $request->id";
         event(new ModeloEvento($mensaje));
         return $this->index($request, $mensaje);
     }

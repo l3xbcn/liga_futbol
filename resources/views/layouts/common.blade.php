@@ -55,14 +55,14 @@
 
                 <ul class="list-reset flex flex-col">
                     <li>
-                        <a href="{{ request()->getSchemeAndHttpHost() }}/jugador">
+                        <a href="{{ request()->getSchemeAndHttpHost() }}/player">
                             <i class="fas fa-user"></i>
                             Jugadores
                             <i class="fas fa-angle-right"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ request()->getSchemeAndHttpHost() }}/equipo">
+                        <a href="{{ request()->getSchemeAndHttpHost() }}/team">
                             <i class="fas fa-user-friends"></i>
                             Equipos
                             <i class="fa fa-angle-right"></i>
@@ -131,8 +131,6 @@
             <p>© Alejandro</p>
         </footer>
 
-    <script src="{{ asset('js/tailwindadmin.js') }}"></script>
-    @yield('js')
     </body>
 
 </html>

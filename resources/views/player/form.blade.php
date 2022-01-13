@@ -1,14 +1,14 @@
 <?php
-    if ( isset ($jugador->id) ) {
+    if ( isset ($player->id) ) {
         $method = 'put';
-        $action = '/jugador/update';
+        $action = '/player/update';
     } else {
         $method = 'post';
-        $action = '/jugador/store';
+        $action = '/player/store';
     }    
 ?>
 <form method="POST" action="<?=$action?>">
-<input type="hidden" name="id" value="{{ ( $jugador->id ?? null ) }}">
+<input type="hidden" name="id" value="{{ ( $player->id ?? null ) }}">
 @csrf  
 @method("$method")
     <table>
@@ -23,21 +23,21 @@
                     Equipo
                 </td>
                 <td>
-                    <select name="id_equipo" class="@error('equipo') is-invalid @enderror">
+                    <select name="team_id" class="@error('team') is-invalid @enderror">
                         <?php
-                            echo '<option value="">Selecciona equipo</option>';
+                            echo '<option value="">Selecciona team</option>';
                         ?>
-                        @foreach ($equipos as $equipo)
+                        @foreach ($teams as $team)
                         <?php
-                            $selected = ( $equipo->id == ( $jugador->id_equipo ?? null) ? 'selected' : '');
+                            $selected = ( $team->id == ( $player->team_id ?? null) ? 'selected' : '');
                         ?>
-                        <option value="{{ $equipo->id }}"<?=$selected?>>{{ $equipo->name }}</option>
+                        <option value="{{ $team->id }}"<?=$selected?>>{{ $team->name }}</option>
                         @endforeach
                     </select>
                 </td>
                 <td>
-                    @error('equipo')
-                        <div class="form-error">* Selecciona un equipo</div>
+                    @error('team')
+                        <div class="form-error">* Selecciona un team</div>
                     @enderror
                 </td>
             </tr>
@@ -46,7 +46,7 @@
                     name
                 </td>
                 <td>
-                    <input type="text" name="name" value="{{ ( $jugador->name ?? null ) }}" class="@error('name') is-invalid @enderror">
+                    <input type="text" name="name" value="{{ ( $player->name ?? null ) }}" class="@error('name') is-invalid @enderror">
                 </td>
                 <td>
                     @error('name')
@@ -64,7 +64,7 @@
                         $posiciones = array('entrenador','portero','defensa','centrocampista','delantero');
                         echo '<option value="">Selecciona posición</option>';
                         foreach ($posiciones as $posicion) {
-                            $selected = ( $posicion == ( $jugador->posicion ?? null ) ? ' selected' : '');
+                            $selected = ( $posicion == ( $player->posicion ?? null ) ? ' selected' : '');
                             echo "<option value=\"$posicion\"$selected>$posicion</option>";
                         }
                         ?>                

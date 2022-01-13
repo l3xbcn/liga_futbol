@@ -1,14 +1,13 @@
--- Adminer 4.8.1 MySQL 5.5.5-10.3.31-MariaDB-0+deb10u1 dump
+-- Adminer 4.7.9 MySQL dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-SET NAMES utf8mb4;
-
-CREATE DATABASE IF NOT EXISTS `liga_futbol` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `liga_futbol`;
+
+SET NAMES utf8mb4;
 
 DROP TABLE IF EXISTS `edicion`;
 CREATE TABLE `edicion` (
@@ -26,13 +25,13 @@ INSERT INTO `edicion` (`id`, `inicio`, `final`) VALUES
 DROP TABLE IF EXISTS `equipos`;
 CREATE TABLE `equipos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `estadio` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 TRUNCATE `equipos`;
-INSERT INTO `equipos` (`id`, `name`, `estadio`) VALUES
+INSERT INTO `equipos` (`id`, `nombre`, `estadio`) VALUES
 (1,	'Athletic Club',	'Estadio San Mamés'),
 (2,	'Atlético de Madrid',	'Wanda Metropolitano'),
 (3,	'CA Osasuna',	'Estadio El Sadar'),
@@ -58,15 +57,15 @@ DROP TABLE IF EXISTS `jugadors`;
 CREATE TABLE `jugadors` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_equipo` int(10) unsigned NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `posicion` enum('entrenador','portero','defensa','centrocampista','delantero') COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_equipo` (`id_equipo`),
   CONSTRAINT `jugadors_ibfk_1` FOREIGN KEY (`id_equipo`) REFERENCES `equipos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 TRUNCATE `jugadors`;
-INSERT INTO `jugadors` (`id`, `id_equipo`, `name`, `posicion`) VALUES
+INSERT INTO `jugadors` (`id`, `id_equipo`, `nombre`, `posicion`) VALUES
 (1,	7,	'Xavi Hernández',	'entrenador'),
 (2,	7,	'Ter Stegen',	'portero'),
 (3,	7,	'Sergiño Dest',	'defensa'),
@@ -112,7 +111,7 @@ CREATE TABLE `partido` (
   CONSTRAINT `partido_ibfk_1` FOREIGN KEY (`equipo_local`) REFERENCES `equipos` (`id`),
   CONSTRAINT `partido_ibfk_2` FOREIGN KEY (`equipo_visitante`) REFERENCES `equipos` (`id`),
   CONSTRAINT `partido_ibfk_3` FOREIGN KEY (`id_edicion`) REFERENCES `edicion` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 TRUNCATE `partido`;
 INSERT INTO `partido` (`id`, `id_edicion`, `jornada`, `equipo_local`, `equipo_visitante`, `goles_local`, `goles_visitante`) VALUES
@@ -137,20 +136,4 @@ INSERT INTO `partido` (`id`, `id_edicion`, `jornada`, `equipo_local`, `equipo_vi
 (19,	91,	2,	8,	18,	0,	1),
 (20,	91,	2,	3,	12,	0,	0);
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-TRUNCATE `users`;
-
--- 2022-01-08 23:44:05
+-- 2022-01-13 09:21:17

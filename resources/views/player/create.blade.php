@@ -2,6 +2,6 @@
 @section('title', 'Jugador - Crear')
 @section('content')
 
-@include('jugador.form')
+@include('player.form')
 
 @endsection

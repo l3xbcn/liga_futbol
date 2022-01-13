@@ -6,26 +6,26 @@
 	},
 	"item": [
 		{
-			"name": "index jugador",
+			"name": "index player",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{IP}}:{{port}}/jugador",
+					"raw": "http://{{IP}}:{{port}}/player",
 					"protocol": "http",
 					"host": [
 						"{{IP}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"jugador"
+						"player"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "show jugador",
+			"name": "show player",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -41,14 +41,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{IP}}:{{port}}/jugador/{{aleatorio}}",
+					"raw": "http://{{IP}}:{{port}}/player/{{aleatorio}}",
 					"protocol": "http",
 					"host": [
 						"{{IP}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"jugador",
+						"player",
 						"{{aleatorio}}"
 					]
 				}
@@ -56,7 +56,7 @@
 			"response": []
 		},
 		{
-			"name": "delete jugador",
+			"name": "delete player",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -72,14 +72,14 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://{{IP}}:{{port}}/jugador/destroy?_method=delete&id={{aleatorio}}",
+					"raw": "http://{{IP}}:{{port}}/player/destroy?_method=delete&id={{aleatorio}}",
 					"protocol": "http",
 					"host": [
 						"{{IP}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"jugador",
+						"player",
 						"destroy"
 					],
 					"query": [
@@ -97,14 +97,14 @@
 			"response": []
 		},
 		{
-			"name": "update jugador",
+			"name": "update player",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
 							"pm.globals.set('aleatorio', Math.floor(Math.random() * 28 + 1));",
-							"pm.globals.set('aleatorio_equipo', Math.floor(Math.random() * 20 + 1));",
+							"pm.globals.set('aleatorio_team', Math.floor(Math.random() * 20 + 1));",
 							"pm.globals.set('aleatorio_posicion', ['entrenador','portero','defensa','centrocampista','delantero'][Math.floor(Math.random() * 5)]);",
 							""
 						],
@@ -116,14 +116,14 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://{{IP}}:{{port}}/jugador/update?_method=put&id={{aleatorio}}&id_equipo={{aleatorio_equipo}}&nombre={{$randomFirstName}} {{$randomLastName}}&posicion={{aleatorio_posicion}}",
+					"raw": "http://{{IP}}:{{port}}/player/update?_method=put&id={{aleatorio}}&team_id={{aleatorio_team}}&nombre={{$randomFirstName}} {{$randomLastName}}&posicion={{aleatorio_posicion}}",
 					"protocol": "http",
 					"host": [
 						"{{IP}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"jugador",
+						"player",
 						"update"
 					],
 					"query": [
@@ -136,8 +136,8 @@
 							"value": "{{aleatorio}}"
 						},
 						{
-							"key": "id_equipo",
-							"value": "{{aleatorio_equipo}}"
+							"key": "team_id",
+							"value": "{{aleatorio_team}}"
 						},
 						{
 							"key": "nombre",
@@ -153,14 +153,14 @@
 			"response": []
 		},
 		{
-			"name": "store jugador",
+			"name": "store player",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
 							"pm.globals.set('aleatorio', Math.floor(Math.random() * 28 + 1));",
-							"pm.globals.set('aleatorio_equipo', Math.floor(Math.random() * 20 + 1));",
+							"pm.globals.set('aleatorio_team', Math.floor(Math.random() * 20 + 1));",
 							"pm.globals.set('aleatorio_posicion', ['entrenador','portero','defensa','centrocampista','delantero'][Math.floor(Math.random() * 5)]);",
 							""
 						],
@@ -172,14 +172,14 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://{{IP}}:{{port}}/jugador/store?id_equipo={{aleatorio_equipo}}&nombre={{$randomFirstName}} {{$randomLastName}}&posicion={{aleatorio_posicion}}",
+					"raw": "http://{{IP}}:{{port}}/player/store?team_id={{aleatorio_team}}&nombre={{$randomFirstName}} {{$randomLastName}}&posicion={{aleatorio_posicion}}",
 					"protocol": "http",
 					"host": [
 						"{{IP}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"jugador",
+						"player",
 						"store"
 					],
 					"query": [
@@ -189,8 +189,8 @@
 							"disabled": true
 						},
 						{
-							"key": "id_equipo",
-							"value": "{{aleatorio_equipo}}"
+							"key": "team_id",
+							"value": "{{aleatorio_team}}"
 						},
 						{
 							"key": "nombre",

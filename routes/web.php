@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JugadorController;
+use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
-use App\Models\Jugador;
+use App\Models\Player;
 use App\Models\User;
 
 /*
@@ -28,13 +29,21 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/', function () {
-    return redirect(request()->getSchemeAndHttpHost().'/jugador' );
+    return redirect(request()->getSchemeAndHttpHost().'/player' );
 });
 
-Route::post('jugador/store', [JugadorController::class, 'store']);
-Route::put('jugador/update', [JugadorController::class, 'update']);
-Route::delete('jugador/destroy', [JugadorController::class, 'destroy']);
-Route::resource('jugador', JugadorController::class)->names('jugador');
+Route::post('player/store', [PlayerController::class, 'store']);
+Route::put('player/update', [PlayerController::class, 'update']);
+Route::delete('player/destroy', [PlayerController::class, 'destroy']);
+Route::resource('player', PlayerController::class)->names('player');
+
+
+Route::get('team/{team}/players}', [PlayerController::class, 'team_index']);
+Route::post('team/store', [TeamController::class, 'store']);
+Route::put('team/update', [TeamController::class, 'update']);
+Route::delete('team/destroy', [TeamController::class, 'destroy']);
+Route::resource('team', TeamController::class)->names('team');
+
 
 Route::get('user', [UserController::class, 'index'])->middleware('can:edit');
 Route::get('user/{user}', [UserController::class, 'show'])->middleware('can:admin');
