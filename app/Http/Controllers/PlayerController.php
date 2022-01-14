@@ -14,6 +14,7 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index(Request $request, $mensaje = '')
     {
         $search =  $request->input('q');
@@ -32,9 +33,8 @@ class PlayerController extends Controller
         return view('player.index', compact('players', 'mensaje'));        
     }
 
-    public function team_index(Request $request, $team)
+    public function players(Request $request, $team, $mensaje='')
     {
-        dd('No estoy aquí');
         $search =  $request->input('q');
         if($search!=""){
             $players = Player
@@ -47,7 +47,7 @@ class PlayerController extends Controller
         else{
             $players = Player
                 ::where('team_id', '=', $team)
-                ::paginate(10)
+                ->paginate(10)
                 ->withPath("/team/$team/players");
         }
         return view('player.index', compact('players', 'mensaje'));        
@@ -63,7 +63,8 @@ class PlayerController extends Controller
     {
         $teams = Team
             ::all();
-        return view('player.create', compact('teams'));
+        $positions = Player::positions();
+        return view('player.create', compact('teams','positions'));
     }
 
     /**
@@ -76,14 +77,14 @@ class PlayerController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|unique:players,name|min:3|max:50|regex:/^[\pL\s\-]+$/u',
-            'posicion' => 'required',
-            'id_team' => 'required'
+            'position' => 'required',
+            'team_id' => 'required'
         ]);
         
         $player = new Player();
-        $player->id_team = $request->id_team;
+        $player->team_id = $request->team_id;
         $player->name = $request->name;
-        $player->posicion = $request->posicion;
+        $player->position = $request->position;
         $player->save();
         $mensaje = "Creado player $player->name";
         event(new ModeloEvento($mensaje));
@@ -115,7 +116,8 @@ class PlayerController extends Controller
             ::find($id);
         $teams = Team
             ::all();
-        return view('player.edit', compact('player', 'teams'));
+        $positions = Player::positions();
+        return view('player.edit', compact('player', 'teams', 'positions'));
     }
 
     /**
@@ -129,14 +131,14 @@ class PlayerController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|min:3|max:50|regex:/^[\pL\s\-]+$/u',
-            'posicion' => 'required|min:1',
-            'id_team' => 'required|min:1'
+            'position' => 'required|min:1',
+            'team_id' => 'required|min:1'
         ]);
         $player = Player
             ::find($request->id);
-        $player->id_team = $request->id_team;
+        $player->team_id = $request->team_id;
         $player->name = $request->name;
-        $player->posicion = $request->posicion;
+        $player->position = $request->position;
         $player->save();
         $mensaje = "Editado player $player->name";
         event(new ModeloEvento($mensaje));

@@ -26,14 +26,14 @@
             <tr>
                 <td>{{ $player->id }}</td>
                 <td>{{ $player->name }}</td>
-                <td>{{ $player->posicion }}</td>
+                <td>{{ $player->position }}</td>
                 <td>{{ $player->team->name }}</td>
                 <td>
                     @can('edit')
-                    <a href="{{ request()->getSchemeAndHttpHost() }}/player/<?=$player->id?>" class="bg-blue-500 ">
+                    <a href="{{ route('player.index') }}/<?=$player->id?>" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
-                    <a href="{{ request()->getSchemeAndHttpHost() }}/player/<?=$player->id?>/edit" class="bg-yellow-500">
+                    <a href="{{ route('player.index') }}/<?=$player->id?>/edit" class="bg-yellow-500">
                         <i class="fas fa-edit"></i>
                     </a>
                     <form class="inline-block" method="POST" action="{{ request()->getSchemeAndHttpHost() }}/player/destroy">

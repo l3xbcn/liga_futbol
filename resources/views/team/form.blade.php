@@ -1,13 +1,13 @@
 <?php
     if ( isset ($team->id) ) {
         $method = 'put';
-        $action = '/team/update';
+        $action = 'update';
     } else {
         $method = 'post';
-        $action = '/team/store';
+        $action = 'store';
     }    
 ?>
-<form method="POST" action="<?=$action?>">
+<form method="POST" action="{{ route('team.index') }}/<?=$action?>">
 <input type="hidden" name="id" value="{{ ( $team->id ?? null ) }}">
 @csrf  
 @method("$method")

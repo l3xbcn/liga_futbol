@@ -20,10 +20,10 @@
         <tr>
             <td>Acciones</td>
             <td>
-                <a href="{{ request()->getSchemeAndHttpHost() }}/team/<?=$team->id?>" class="bg-blue-500">
+                <a href="{{ route('team.index') }}/<?=$team->id?>" class="bg-blue-500">
                     <i class="fas fa-eye"></i>
                 </a>
-                <a href="{{ request()->getSchemeAndHttpHost() }}/team/<?=$team->id?>/edit" class="bg-yellow-500">
+                <a href="{{ route('team.index') }}/<?=$team->id?>/edit" class="bg-yellow-500">
                     <i class="fas fa-edit"></i>
                 </a>
                 <a class="bg-red-500 cursor-pointer rounded p-1 mx-1 text-white">

@@ -1,13 +1,13 @@
 <?php
     if ( isset ($player->id) ) {
         $method = 'put';
-        $action = '/player/update';
+        $action = 'update';
     } else {
         $method = 'post';
-        $action = '/player/store';
+        $action = 'store';
     }    
 ?>
-<form method="POST" action="<?=$action?>">
+<form method="POST" action="{{ route('player.index') }}/<?=$action?>">
 <input type="hidden" name="id" value="{{ ( $player->id ?? null ) }}">
 @csrf  
 @method("$method")
@@ -59,19 +59,18 @@
                     Posición
                 </td>
                 <td>
-                    <select name="posicion" class="@error('posicion') is-invalid @enderror">
-                        <?php
-                        $posiciones = array('entrenador','portero','defensa','centrocampista','delantero');
-                        echo '<option value="">Selecciona posición</option>';
-                        foreach ($posiciones as $posicion) {
-                            $selected = ( $posicion == ( $player->posicion ?? null ) ? ' selected' : '');
-                            echo "<option value=\"$posicion\"$selected>$posicion</option>";
-                        }
-                        ?>                
+                    <select name="position" class="@error('position') is-invalid @enderror">
+                        <option value="">Selecciona posición</option>
+                        @foreach ($positions as $position)
+                            <?php
+                            $selected = ( $position == ( $player->position ?? null ) ? ' selected' : '');
+                            ?>
+                            <option value="{{ $position }}"<?=$selected?>>{{ $position }}</option>
+                        @endforeach
                     </select>
                 </td>
                 <td>
-                    @error('posicion')
+                    @error('position')
                         <div class="form-error">* Selecciona una posición</div>
                     @enderror                
                 </td>

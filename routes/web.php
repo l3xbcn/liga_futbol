@@ -38,7 +38,7 @@ Route::delete('player/destroy', [PlayerController::class, 'destroy']);
 Route::resource('player', PlayerController::class)->names('player');
 
 
-Route::get('team/{team}/players}', [PlayerController::class, 'team_index']);
+Route::get('teams/{team}/players', [PlayerController::class, 'players']);
 Route::post('team/store', [TeamController::class, 'store']);
 Route::put('team/update', [TeamController::class, 'update']);
 Route::delete('team/destroy', [TeamController::class, 'destroy']);
