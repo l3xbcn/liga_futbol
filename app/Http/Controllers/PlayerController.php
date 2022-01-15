@@ -39,7 +39,7 @@ class PlayerController extends Controller
         if($search!=""){
             $players = Player
                 ::where('team_id', '=', $team)
-                ::and('name', 'like', '%'.$search.'%')
+                ->where('name', 'like', '%'.$search.'%')
                 ->paginate(10)
                 ->withQueryString()
                 ->withPath("/team/$team/players");
@@ -151,10 +151,10 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        Player::destroy($request->id);
-        $mensaje = "Eliminado player con id: $request->id";
+        Player::destroy($id);
+        $mensaje = "Eliminado player con id: $id";
         event(new ModeloEvento($mensaje));
         return $this->index($request, $mensaje);
     }

@@ -118,10 +118,10 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        Team::destroy($request->id);
-        $mensaje = "Eliminado team con id: $request->id";
+        Team::destroy($id);
+        $mensaje = "Eliminado team con id: $id";
         event(new ModeloEvento($mensaje));
         return $this->index($request, $mensaje);
     }

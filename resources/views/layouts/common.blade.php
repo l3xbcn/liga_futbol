@@ -30,20 +30,32 @@
                 <div class="p-1 mx-3 inline-flex items-center">
                     <i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
                 </div>
-                <div class="p-1 flex flex-row items-center">
-                    <a href="https://github.com/l3xbcn/liga_futbol" class="text-white p-2 mr-2 no-underline hidden md:block lg:block">Github</a>
-
-
-                    <img onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full" src="https://github.com/l3xbcn.png" alt="">
-                    <a href="#" onclick="profileToggle()" class="text-white p-2 no-underline hidden md:block lg:block">Alejandro Gallardo</a>
+                <div class="p-1 inline-flex items-centers bg-red-50">
+                    @canany('admin', 'edit')
+                    <a onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full fas fa-user text-white text-lg"></a>
                     <div id="ProfileDropDown">
                         <ul>
-                            <li><a href="#">Mi cuenta</a></li>
-                            <li><a href="#">Notificaciones</a></li>
-                            <li><hr></li>
-                            <li><a href="#">Desconectar</a></li>
+
+                            <li>
+                                <a href="/dashboard">Mi cuenta</a>
+                            </li>
+                            
+                            <hr/>
+                            
+                            <li>
+                                <form method="POST" action="/logout">
+                                    @csrf
+                                    <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">Desconectar</a>
+                                </form>
+                            </li>
+
                         </ul>
                     </div>
+                    @endcan
+                    @cannot('admin', 'edit')
+                    <a href="/login" class="text-white p-2 no-underline hidden md:block lg:block">Login</a>
+                    @endcan
+                    <span class="text-white text-lg">|&nbsp;&nbsp;&nbsp;<a href="https://github.com/l3xbcn/liga_futbol">Repositorio en Github</a></span>
                 </div>
             </div>
 
@@ -55,48 +67,50 @@
 
                 <ul class="list-reset flex flex-col">
                     <li>
-                        <a href="{{ request()->getSchemeAndHttpHost() }}/player">
+                        <a href="{{ route('player.index') }}">
                             <i class="fas fa-user"></i>
                             Jugadores
                             <i class="fas fa-angle-right"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ request()->getSchemeAndHttpHost() }}/team">
+                        <a href="{{ route('team.index') }}">
                             <i class="fas fa-user-friends"></i>
                             Equipos
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ request()->getSchemeAndHttpHost() }}/partido">
+                        <a href="{{ route('game.index') }}">
                             <i class="fas fa-futbol"></i>
                             Partidos
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ request()->getSchemeAndHttpHost() }}/edicion">
+                        <a href="{{ route('edition.index') }}">
                             <i class="fas fa-calendar-alt"></i>
                             Ediciones
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ request()->getSchemeAndHttpHost() }}/ruta_no_registrada">
+                        <a href="{{ route('404') }}">
                             <i class="fas fa-exclamation-triangle"></i>
                             404 Page
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
+                    @can('admin')
                     <hr>
                     <li>
-                        <a href="{{ request()->getSchemeAndHttpHost() }}/user">
+                        <a href="{{ route('user.index') }}">
                             <i class="fas fa-users"></i>
                             Administración
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
+                    @endcan
                 </ul>
 
             </aside>            
@@ -106,8 +120,10 @@
                     @yield('title')
                 </div>
                 <div class="content">
-                    <a href="{{ request()->getSchemeAndHttpHost() }}/@yield('model')/create"><button class="create float-right">Crear nuevo</button></a>
-                    <form action="/@yield('model')" method="get" role="search" class="search">
+                    @can('edit')
+                    <a href="{{ URL::current() }}/create"><button class="create float-right">Crear nuevo</button></a>
+                    @endcan
+                    <form action="{{ URL::current() }}" method="get" role="search" class="search">
                         {{ csrf_field() }}
                             <div class="flex">
                                 <div>
@@ -130,6 +146,8 @@
         <footer>
             <p>© Alejandro</p>
         </footer>
+
+        <script src="{{ asset('js/tailwindadmin.js') }}"></script>
 
     </body>
 

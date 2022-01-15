@@ -24,20 +24,21 @@
         <tr>
             <td>Acciones</td>
             <td>
-                <a href="{{ route('player.index') }}/<?=$player->id?>" class="bg-blue-500">
+                <a href="{{ route('player.show',$player->id) }}" class="bg-blue-500">
                     <i class="fas fa-eye"></i>
                 </a>
-                <a href="{{ route('player.index') }}/<?=$player->id?>/edit" class="bg-yellow-500">
+                @can('edit')
+                <a href="{{ route('player.edit',$player->id) }}" class="bg-yellow-500">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a class="bg-red-500 cursor-pointer rounded p-1 mx-1 text-white">
-                    <form class="inline-block" method="POST" action="{{ request()->getSchemeAndHttpHost() }}/player/destroy">
-                        @csrf  
-                        @method("delete")
-                        <input type="hidden" name="id" value="{{ ( $player->id ?? null ) }}" />
-                        <button type="submit" value="" class="bg-red-500 fas fa-trash"></button>
-                    </form> 
-                </a>
+                <form class="inline-block" method="POST" action="{{ route('player.destroy',$player->id) }}">
+                    @csrf  
+                    @method("delete")
+                    <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <i class="fas fa-trash"></i>
+                    </a>                        
+                </form>
+                @endcan 
             </td>
         </tr>
     </tbody>

@@ -27,24 +27,25 @@
                 <td>{{ $team->name }}</td>
                 <td>{{ $team->stadium }}</td>
                 <td>
-                    <a href="{{ route('team.index') }}/<?=$team->id?>/players" class="bg-blue-500 ">
+                    <a href="{{ route('team.players',$team->id) }}" class="bg-blue-500 ">
                         <i class="fas fa-users"></i>
                     </a>
-                    @can('edit')
-                    <a href="{{ route('team.index') }}/<?=$team->id?>" class="bg-blue-500 ">
+                    <a href="{{ route('team.show',$team->id) }}" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
-                    <a href="{{ route('team.index') }}/<?=$team->id?>/edit" class="bg-yellow-500">
+                    @can('edit')
+                    <a href="{{ route('team.edit',$team->id) }}" class="bg-yellow-500">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form class="inline-block" method="POST" action="{{ request()->getSchemeAndHttpHost() }}/team/destroy">
+                    <form class="inline-block" method="POST" action="{{ route('team.destroy',$team->id) }}">
                         @csrf  
                         @method("delete")
-                        <input type="hidden" name="id" value="{{ ( $team->id ?? null ) }}" />
-                        <button type="submit" value="" class="bg-red-500 fas fa-trash"></button>
+                        <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="fas fa-trash"></i>
+                        </a>                        
                     </form>
+                    @endcan
                 </td>
-                @endcan
             </tr>
             @endforeach
         </tbody>

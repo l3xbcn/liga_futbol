@@ -29,21 +29,22 @@
                 <td>{{ $player->position }}</td>
                 <td>{{ $player->team->name }}</td>
                 <td>
-                    @can('edit')
-                    <a href="{{ route('player.index') }}/<?=$player->id?>" class="bg-blue-500 ">
+                    <a href="{{ route('player.show', $player->id) }}" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
-                    <a href="{{ route('player.index') }}/<?=$player->id?>/edit" class="bg-yellow-500">
+                    @can('edit')
+                    <a href="{{ route('player.edit', $player->id) }}" class="bg-yellow-500">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form class="inline-block" method="POST" action="{{ request()->getSchemeAndHttpHost() }}/player/destroy">
+                    <form class="inline-block" method="POST" action="{{ route('player.destroy',$player->id) }}">
                         @csrf  
                         @method("delete")
-                        <input type="hidden" name="id" value="{{ ( $player->id ?? null ) }}" />
-                        <button type="submit" value="" class="bg-red-500 fas fa-trash"></button>
+                        <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="fas fa-trash"></i>
+                        </a>                        
                     </form>
+                    @endcan
                 </td>
-                @endcan
             </tr>
             @endforeach
         </tbody>
