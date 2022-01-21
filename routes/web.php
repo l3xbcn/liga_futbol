@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\EditionController;
 use App\Http\Controllers\UserController;
-use App\Models\Player;
-use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,12 @@ Route::get('/', function () {
     return redirect(request()->getSchemeAndHttpHost().'/player' );
 });
 
+
+Route::post('game/store', [GameController::class, 'store']);
+Route::put('game/update', [GameController::class, 'update']);
+Route::delete('game/destroy/{game}', [GameController::class, 'destroy']);
+Route::resource('game', GameController::class)->names('game');
+
 Route::post('player/store', [PlayerController::class, 'store']);
 Route::put('player/update', [PlayerController::class, 'update']);
 Route::delete('player/destroy', [PlayerController::class, 'destroy']);
@@ -43,8 +49,7 @@ Route::put('team/update', [TeamController::class, 'update']);
 Route::delete('team/destroy', [TeamController::class, 'destroy']);
 Route::resource('team', TeamController::class)->names('team');
 
-Route::resource('game', TeamController::class)->names('game');
-Route::resource('edition', TeamController::class)->names('edition');
+Route::resource('edition', EditionController::class)->names('edition');
 
 Route::get('user', [UserController::class, 'index'])->middleware('can:edit')->name('user.index');
 Route::get('user/{user}', [UserController::class, 'show'])->middleware('can:admin')->name('user.show');
@@ -57,7 +62,6 @@ Route::delete('user/destroy', [UserController::class, 'destroy'])->middleware('c
 Route::get('player/{player}/create', [PlayerController::class, 'create'])->name('player.player_id.create');
 Route::get('team/{team}/create', [TeamController::class, 'create'])->name('team.team.create');
 Route::get('team/{team}/players/create', [PlayerController::class, 'create'])->name('team.team_id.players.create');
-
 
 Route::get('/404', function () {
     return abort(404);

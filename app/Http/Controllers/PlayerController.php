@@ -151,10 +151,10 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
-        Player::destroy($id);
-        $mensaje = "Eliminado player con id: $id";
+        Player::destroy($request->id);
+        $mensaje = "Eliminado player con id: $request->id";
         event(new ModeloEvento($mensaje));
         return $this->index($request, $mensaje);
     }

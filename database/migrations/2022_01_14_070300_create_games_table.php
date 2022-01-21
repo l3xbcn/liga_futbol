@@ -35,6 +35,7 @@ class CreateGamesTable extends Migration
                 ->on('teams')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
+            $table->unique(array('edition_id','match_day','team_local_id','team_visitor_id'));
 
 
 

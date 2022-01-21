@@ -34,6 +34,7 @@
                 <form class="inline-block" method="POST" action="{{ route('player.destroy',$player->id) }}">
                     @csrf  
                     @method("delete")
+                    <input type="hidden" name="id" value="{{ ( $player->id ?? null ) }}" />
                     <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
                         <i class="fas fa-trash"></i>
                     </a>                        

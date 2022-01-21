@@ -7,9 +7,12 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Role;
+
 
 class RegisteredUserController extends Controller
 {
@@ -46,6 +49,9 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+        if (!App::runningUnitTests() && Count(Role::findByName('Viewer')->get()) > 0) {
+            $user->roles()->attach(Role::where('name', 'Viewer')->first()->id);
+        }
 
         Auth::login($user);
 

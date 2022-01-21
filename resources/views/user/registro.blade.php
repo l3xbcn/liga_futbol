@@ -26,14 +26,14 @@
                 <a href="{{ request()->getSchemeAndHttpHost() }}/user/<?=$user->id?>/edit" class="bg-yellow-500">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a class="bg-red-500 cursor-pointer rounded p-1 mx-1 text-white">
-                    <form class="inline-block" method="POST" action="{{ request()->getSchemeAndHttpHost() }}/user/destroy">
-                        @csrf  
-                        @method("delete")
-                        <input type="hidden" name="id" value="{{ ( $user->id ?? null ) }}" />
-                        <button type="submit" value="" class="bg-red-500 fas fa-trash"></button>
-                    </form> 
-                </a>
+                <form class="inline-block" method="POST" action="{{ route('user.destroy') }}">
+                    @csrf  
+                    @method("delete")
+                    <input type="hidden" name="id" value="{{ ( $user->id ?? null ) }}" />
+                    <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <i class="fas fa-trash"></i>
+                    </a>                        
+                </form> 
             </td>
         </tr>
     </tbody>

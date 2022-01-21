@@ -15,5 +15,11 @@ class VerifyCsrfToken extends Middleware
         'player/destroy',
         'player/update',
         'player/store',
+        'team/destroy',
+        'team/update',
+        'team/store',        
+        'game/destroy',
+        'game/update',
+        'game/store',
     ];
 }

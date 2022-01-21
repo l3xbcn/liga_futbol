@@ -1,5 +1,4 @@
 @extends('layouts.common')
-@section('model', 'player')
 @section('title', 'Jugadores | Índice')
 @section('content')
 <?php if (!empty($mensaje)) { ?>
@@ -29,6 +28,7 @@
                 <td>{{ $player->position }}</td>
                 <td>{{ $player->team->name }}</td>
                 <td>
+                    @can('regActions')
                     <a href="{{ route('player.show', $player->id) }}" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
@@ -39,10 +39,12 @@
                     <form class="inline-block" method="POST" action="{{ route('player.destroy',$player->id) }}">
                         @csrf  
                         @method("delete")
+                        <input type="hidden" name="id" value="{{ ( $player->id ?? null ) }}" />
                         <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
                             <i class="fas fa-trash"></i>
                         </a>                        
                     </form>
+                    @endcan
                     @endcan
                 </td>
             </tr>

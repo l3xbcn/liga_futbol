@@ -14,38 +14,42 @@
         <thead>
         <tr>
             <th class="w-1/12 ">ID</th>
-            <th class="w-4/12">Nombre</th>
-            <th class="w-5/12">Estadio</th>
+            <th class="w-1/12">Edición</th>
+            <th class="w-1/12">Jornada</th>
+            <th class="w-2/12">Equipo local</th>
+            <th class="w-2/12">Equipo visitante</th>
+            <th class="w-1/12">Goles local</th>
+            <th class="w-1/12">Goles visitante</th>
             <th class="w-2/12">Acciones</th>
         </tr>
         </thead>
         <tbody>
-            @foreach ($teams as $team)
+            @foreach ($games as $game)
             <tr>
-                <td>{{ $team->id }}</td>
-                <td>{{ $team->name }}</td>
-                <td>{{ $team->stadium }}</td>
+                <td>{{ $game->id }}</td>
+                <td>{{ $game->edition_id }}</td>
+                <td>{{ $game->match_day }}</td>
+                <td>{{ $game->team_local->name }}</td>
+                <td>{{ $game->team_visitor->name }}</td>
+                <td>{{ $game->goals_local }}</td>
+                <td>{{ $game->goals_visitor }}</td>
+
                 <td>
-                    @can('regActions')
-                    <a href="{{ route('team.players',$team->id) }}" class="bg-blue-500 ">
-                        <i class="fas fa-users"></i>
-                    </a>
-                    <a href="{{ route('team.show',$team->id) }}" class="bg-blue-500 ">
+                    <a href="{{ route('game.show',$game->id) }}" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
                     @can('edit')
-                    <a href="{{ route('team.edit',$team->id) }}" class="bg-yellow-500">
+                    <a href="{{ route('game.edit',$game->id) }}" class="bg-yellow-500">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form class="inline-block" method="POST" action="{{ route('team.destroy',$team->id) }}">
+                    <form class="inline-block" method="POST" action="{{ route('game.destroy',$game->id) }}">
                         @csrf  
                         @method("delete")
-                        <input type="hidden" name="id" value="{{ ( $team->id ?? null ) }}" />
+                        <input type="hidden" name="id" value="{{ ( $game->id ?? null ) }}" />
                         <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
                             <i class="fas fa-trash"></i>
                         </a>                        
                     </form>
-                    @endcan
                     @endcan
                 </td>
             </tr>
@@ -54,14 +58,18 @@
         <tfoot>
             <tr>
                 <th class="w-1/12 ">ID</th>
-                <th class="w-3/12">Nombre</th>
-                <th class="w-3/12">Estadio</th>
-                <th class="w-3/12">Acciones</th>
+                <th class="w-1/12">Edición</th>
+                <th class="w-1/12">Jornada</th>
+                <th class="w-2/12">Equipo local</th>
+                <th class="w-2/12">Equipo visitante</th>
+                <th class="w-1/12">Goles local</th>
+                <th class="w-1/12">Goles visitante</th>
+                <th class="w-2/12">Acciones</th>
             </tr>
         </tfoot>        
     </table>
     <script>
     </script>    
 
-    {{ $teams->links() }}
+    {{ $games->links() }}
 @endsection

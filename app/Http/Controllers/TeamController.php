@@ -15,6 +15,7 @@ class TeamController extends Controller
      */
     public function index(Request $request, $mensaje = '')
     {
+                
         $search =  $request->input('q');
         if($search!=""){
             $teams = Team
@@ -118,10 +119,10 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
-        Team::destroy($id);
-        $mensaje = "Eliminado team con id: $id";
+        Team::destroy($request->id);
+        $mensaje = "Eliminado team con id: $request->id";
         event(new ModeloEvento($mensaje));
         return $this->index($request, $mensaje);
     }

@@ -31,10 +31,14 @@
                     <i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
                 </div>
                 <div class="p-1 inline-flex items-centers bg-red-50">
-                    @canany('admin', 'edit')
+                    @canany('view', 'edit', 'admin')
                     <a onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full fas fa-user text-white text-lg"></a>
                     <div id="ProfileDropDown">
                         <ul>
+                            <li>
+                                {{ Auth::user()->name }}
+                                <hr/>
+                            </li>
 
                             <li>
                                 <a href="/dashboard">Mi cuenta</a>
@@ -52,10 +56,18 @@
                         </ul>
                     </div>
                     @endcan
-                    @cannot('admin', 'edit')
-                    <a href="/login" class="text-white p-2 no-underline hidden md:block lg:block">Login</a>
+                    @canany('view', 'edit', 'admin')
+                    @else
+                    <span class="text-white text-lg pr-2">
+                    <a href="/login">Login</a>
+                    |&nbsp;
+                    <a href="/register">Registro</a>
+                    </span>
                     @endcan
-                    <span class="text-white text-lg">|&nbsp;&nbsp;&nbsp;<a href="https://github.com/l3xbcn/liga_futbol">Repositorio en Github</a></span>
+                    <span class="text-white text-lg">
+                        |&nbsp;
+                        <a href="https://github.com/l3xbcn/liga_futbol">Repositorio en Github</a>
+                    </span>
                 </div>
             </div>
 
@@ -80,6 +92,7 @@
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
+                    @can('regActions')
                     <li>
                         <a href="{{ route('game.index') }}">
                             <i class="fas fa-futbol"></i>
@@ -88,12 +101,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('edition.index') }}">
+                        <a href="{{ route('game.index') }}">
                             <i class="fas fa-calendar-alt"></i>
                             Ediciones
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
+                    @endcan
                     <li>
                         <a href="{{ route('404') }}">
                             <i class="fas fa-exclamation-triangle"></i>

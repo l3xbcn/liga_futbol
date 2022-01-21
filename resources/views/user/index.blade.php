@@ -1,5 +1,4 @@
 @extends('layouts.common')
-@section('model', 'user')
 @section('title', 'Usuarios | Índice')
 @section('content')
 <?php if (!empty($mensaje)) { ?>
@@ -41,12 +40,15 @@
                     <a href="{{ request()->getSchemeAndHttpHost() }}/user/<?=$user->id?>/edit" class="bg-yellow-500">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form class="inline-block" method="POST" action="{{ request()->getSchemeAndHttpHost() }}/user/destroy">
+                    <form class="inline-block" method="POST" action="{{ route('user.destroy',$user->id) }}">
                         @csrf  
                         @method("delete")
                         <input type="hidden" name="id" value="{{ ( $user->id ?? null ) }}" />
-                        <button type="submit" value="" class="bg-red-500 fas fa-trash"></button>
+                        <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="fas fa-trash"></i>
+                        </a>                        
                     </form>
+
                     @endcan
                 </td>
             </tr>

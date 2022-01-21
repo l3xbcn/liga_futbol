@@ -9,7 +9,6 @@ use App\Models\Team;
 class Player extends Model
 {
     use HasFactory;
-    public $timestamps = false;
     public static function positions() {
         return ['entrenador','portero','defensa','centrocampista','delantero'];
     }
