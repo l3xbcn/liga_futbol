@@ -28,7 +28,6 @@
                 <td>{{ $player->position }}</td>
                 <td>{{ $player->team->name }}</td>
                 <td>
-                    @can('regActions')
                     <a href="{{ route('player.show', $player->id) }}" class="bg-blue-500 ">
                         <i class="fas fa-eye"></i>
                     </a>
@@ -44,7 +43,6 @@
                             <i class="fas fa-trash"></i>
                         </a>                        
                     </form>
-                    @endcan
                     @endcan
                 </td>
             </tr>

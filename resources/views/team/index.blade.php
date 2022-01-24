@@ -26,7 +26,6 @@
                 <td>{{ $team->name }}</td>
                 <td>{{ $team->stadium }}</td>
                 <td>
-                    @can('regActions')
                     <a href="{{ route('team.players',$team->id) }}" class="bg-blue-500 ">
                         <i class="fas fa-users"></i>
                     </a>
@@ -45,7 +44,6 @@
                             <i class="fas fa-trash"></i>
                         </a>                        
                     </form>
-                    @endcan
                     @endcan
                 </td>
             </tr>
