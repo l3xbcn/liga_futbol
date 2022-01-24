@@ -32,33 +32,31 @@ Route::get('/', function () {
     return redirect(request()->getSchemeAndHttpHost().'/player' );
 });
 
-Route::get('game', [GameController::class, 'index'])->middleware('can:admin,edit,view')->name('game.index');
-Route::get('game/{game}', [GameController::class, 'show'])->middleware('can:admin,edit,view')->name('game.show');
-Route::get('game/{game}/edit', [GameController::class, 'edit'])->middleware('can:admin,edit')->name('game.edit');
-Route::get('game/create', [GameController::class, 'create'])->middleware('can:admin,edit')->name('game.create');
-Route::post('game/store', [GameController::class, 'store'])->middleware('can:admin,edit')->name('game.store');
-Route::put('game/update', [GameController::class, 'update'])->middleware('can:admin,edit')->name('game.update');
-Route::delete('game/destroy', [GameController::class, 'destroy'])->middleware('can:admin,edit')->name('game.destroy');
+Route::get('game', [GameController::class, 'index'])->middleware('can:view')->name('game.index');
+Route::get('game/{game}', [GameController::class, 'show'])->middleware('can:view')->name('game.show');
+Route::get('game/{game}/edit', [GameController::class, 'edit'])->middleware('can:edit')->name('game.edit');
+Route::get('game/create', [GameController::class, 'create'])->middleware('can:edit')->name('game.create');
+Route::post('game/store', [GameController::class, 'store'])->middleware('can:edit')->name('game.store');
+Route::put('game/update', [GameController::class, 'update'])->middleware('can:edit')->name('game.update');
+Route::delete('game/destroy', [GameController::class, 'destroy'])->middleware('can:edit')->name('game.destroy');
 
-Route::get('player', [PlayerController::class, 'index'])->middleware('can:admin,edit,view')->name('player.index');
-Route::get('player/{player}', [PlayerController::class, 'show'])->middleware('can:admin,edit,view')->name('player.show');
-Route::get('player/{player}/edit', [PlayerController::class, 'edit'])->middleware('can:admin,edit')->name('player.edit');
-Route::get('player/create', [PlayerController::class, 'create'])->middleware('can:admin,edit')->name('player.create');
-Route::post('player/store', [PlayerController::class, 'store'])->middleware('can:admin,edit')->name('player.store');
-Route::put('player/update', [PlayerController::class, 'update'])->middleware('can:admin,edit')->name('player.update');
-Route::delete('player/destroy', [PlayerController::class, 'destroy'])->middleware('can:admin,edit')->name('player.destroy');
+Route::get('player', [PlayerController::class, 'index'])->middleware('can:view')->name('player.index');
+Route::get('player/{player}', [PlayerController::class, 'show'])->middleware('can:view')->name('player.show');
+Route::get('player/{player}/edit', [PlayerController::class, 'edit'])->middleware('can:edit')->name('player.edit');
+Route::get('player/create', [PlayerController::class, 'create'])->middleware('can:edit')->name('player.create');
+Route::post('player/store', [PlayerController::class, 'store'])->middleware('can:edit')->name('player.store');
+Route::put('player/update', [PlayerController::class, 'update'])->middleware('can:edit')->name('player.update');
+Route::delete('player/destroy', [PlayerController::class, 'destroy'])->middleware('can:edit')->name('player.destroy');
 
-Route::get('team', [TeamController::class, 'index'])->middleware('can:admin,edit,view')->name('team.index');
-Route::get('team/{team}', [TeamController::class, 'show'])->middleware('can:admin,edit,view')->name('team.show');
-Route::get('team/{team}/edit', [TeamController::class, 'edit'])->middleware('can:admin,edit')->name('team.edit');
-Route::get('team/create', [TeamController::class, 'create'])->middleware('can:admin,edit')->name('team.create');
-Route::post('team/store', [TeamController::class, 'store'])->middleware('can:admin,edit')->name('team.store');
-Route::put('team/update', [TeamController::class, 'update'])->middleware('can:admin,edit')->name('team.update');
-Route::delete('team/destroy', [TeamController::class, 'destroy'])->middleware('can:admin,edit')->name('team.destroy');
+Route::get('team', [TeamController::class, 'index'])->middleware('can:view')->name('team.index');
+Route::get('team/{team}', [TeamController::class, 'show'])->middleware('can:view')->name('team.show');
+Route::get('team/{team}/edit', [TeamController::class, 'edit'])->middleware('can:edit')->name('team.edit');
+Route::get('team/create', [TeamController::class, 'create'])->middleware('can:edit')->name('team.create');
+Route::post('team/store', [TeamController::class, 'store'])->middleware('can:edit')->name('team.store');
+Route::put('team/update', [TeamController::class, 'update'])->middleware('can:edit')->name('team.update');
+Route::delete('team/destroy', [TeamController::class, 'destroy'])->middleware('can:edit')->name('team.destroy');
 
-Route::get('team/{team}/players', [PlayerController::class, 'players'])->middleware('can:admin,edit,view')->name('team.players');
-
-Route::resource('edition', EditionController::class)->names('edition');
+Route::get('team/{team}/players', [PlayerController::class, 'players'])->middleware('can:view')->name('team.players');
 
 Route::get('user', [UserController::class, 'index'])->middleware('can:admin')->name('user.index');
 Route::get('user/{user}', [UserController::class, 'show'])->middleware('can:admin')->name('user.show');
@@ -67,11 +65,7 @@ Route::post('user/store', [UserController::class, 'store'])->middleware('can:adm
 Route::put('user/update', [UserController::class, 'update'])->middleware('can:admin')->name('user.update');
 Route::delete('user/destroy', [UserController::class, 'destroy'])->middleware('can:admin')->name('user.destroy');
 
-
-
-
-
-Route::get('team/{team}/players/create', [PlayerController::class, 'create'])->name('team.team_id.players.create');
+Route::resource('edition', EditionController::class)->names('edition');
 
 Route::get('/404', function () {
     return abort(404);
