@@ -31,8 +31,12 @@ Route::get('/', function () {
     return redirect(request()->getSchemeAndHttpHost().'/player' );
 });
 
-Route::get('game', [GameController::class, 'index'])->name('game.index');
-Route::get('game/{game}', [GameController::class, 'show'])->name('game.show');
+// Los usuarios registrados sólo pueden ver los jugadores y equipos
+// Los registrados con el rol por defecto de Viewer (permiso view) pueden ver adenás los resultados de los partidos
+// Los usuarios con permiso de edición pueden ver, crear, editar y eliminar jugadores, partidos y resultados
+// Los administradores además pueden ver, crear, editar y eliminar usuarios
+Route::get('game', [GameController::class, 'index'])->middleware('can:view')->name('game.index');
+Route::get('game/{game}', [GameController::class, 'show'])->middleware('can:view')->name('game.show');
 Route::get('game/{game}/edit', [GameController::class, 'edit'])->middleware('can:edit')->name('game.edit');
 Route::get('game/create', [GameController::class, 'create'])->middleware('can:edit')->name('game.create');
 Route::post('game/store', [GameController::class, 'store'])->middleware('can:edit')->name('game.store');
