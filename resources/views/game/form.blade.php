@@ -17,20 +17,30 @@
                 <th colspan=3>Formulario</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody>            
             <tr>
                 <td>
                     Edición
                 </td>
                 <td>
-                    <input type="number" name="edition_id" value="{{ ( $game->edition_id ?? null ) }}" class="@error('edition_id') is-invalid @enderror">
+                    <select name="edition_id" class="@error('edition_id') is-invalid @enderror">
+                        <?php
+                            echo '<option value="">Selecciona una edición</option>';
+                        ?>
+                        @foreach ($editions as $edition)
+                        <?php
+                            $selected = ( $edition->id == ( $game->edition_id ?? null) ? ' selected' : '');
+                        ?>
+                        <option value={{ $edition->id }}<?=$selected?>>{{ $edition->id }} ( {{ $edition->start }} - {{ $edition->end }} )</option>
+                        @endforeach
+                    </select>
                 </td>
                 <td>
                     @error('edition_id')
-                        <div class="form-error">* Introduce la edidión</div>
+                        <div class="form-error">* Selecciona la edición</div>
                     @enderror
                 </td>
-            </tr>
+            </tr>            
 
             <tr>
                 <td>
@@ -41,7 +51,7 @@
                 </td>
                 <td>
                     @error('match_day')
-                        <div class="form-error">* Introduce la jornada/div>
+                        <div class="form-error">* Introduce la jornada</div>
                     @enderror
                 </td>
             </tr>

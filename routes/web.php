@@ -32,7 +32,6 @@ Route::get('/', function () {
     return redirect(request()->getSchemeAndHttpHost().'/player' );
 });
 
-
 Route::post('game/store', [GameController::class, 'store']);
 Route::put('game/update', [GameController::class, 'update']);
 Route::delete('game/destroy/{game}', [GameController::class, 'destroy']);
@@ -51,16 +50,17 @@ Route::resource('team', TeamController::class)->names('team');
 
 Route::resource('edition', EditionController::class)->names('edition');
 
-Route::get('user', [UserController::class, 'index'])->middleware('can:edit')->name('user.index');
+Route::get('user', [UserController::class, 'index'])->middleware('can:admin')->name('user.index');
 Route::get('user/{user}', [UserController::class, 'show'])->middleware('can:admin')->name('user.show');
 Route::get('user/{user}/edit', [UserController::class, 'edit'])->middleware('can:admin')->name('user.edit');
 Route::post('user/store', [UserController::class, 'store'])->middleware('can:admin')->name('user.store');
 Route::put('user/update', [UserController::class, 'update'])->middleware('can:admin')->name('user.update');
 Route::delete('user/destroy', [UserController::class, 'destroy'])->middleware('can:admin')->name('user.destroy');
 
-// Casos especiales, para que el botón de Crear registro funcione en cualquier vista
-Route::get('player/{player}/create', [PlayerController::class, 'create'])->name('player.player_id.create');
-Route::get('team/{team}/create', [TeamController::class, 'create'])->name('team.team.create');
+
+
+
+
 Route::get('team/{team}/players/create', [PlayerController::class, 'create'])->name('team.team_id.players.create');
 
 Route::get('/404', function () {

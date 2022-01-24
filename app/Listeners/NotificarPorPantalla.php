@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\ModeloEvento;
+use App\Events\NotifyEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -24,7 +24,7 @@ class NotificarPorPantalla
      * @param  object  $event
      * @return void
      */
-    public function handle(ModeloEvento $event)
+    public function handle(NotifyEvent $event)
     {
         echo "<div class=\"debug bg-gray-700\">Se notifica por pantalla del resultado de la operación: $event->mensaje</div>";
     }

@@ -30,7 +30,7 @@
                 <div class="p-1 mx-3 inline-flex items-center">
                     <i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
                 </div>
-                <div class="p-1 inline-flex items-centers bg-red-50">
+                <div class="p-1 inline-flex items-centers">
                     @canany('view', 'edit', 'admin')
                     <a onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full fas fa-user text-white text-lg"></a>
                     <div id="ProfileDropDown">
@@ -101,7 +101,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('game.index') }}">
+                        <a href="{{ route('edition.index') }}">
                             <i class="fas fa-calendar-alt"></i>
                             Ediciones
                             <i class="fa fa-angle-right"></i>
@@ -134,6 +134,7 @@
                     @yield('title')
                 </div>
                 <div class="content">
+                    @if (str_contains(Route::current()->getName(),'.index'))
                     @can('edit')
                     <a href="{{ URL::current() }}/create"><button class="create float-right">Crear nuevo</button></a>
                     @endcan
@@ -151,6 +152,7 @@
                                 </div>
                             </div>
                     </form>
+                    @endif
                     @yield('content')
                 </div>
             </main>

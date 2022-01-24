@@ -14,7 +14,7 @@ class EditionController extends Controller
      */
     public function index()
     {
-        //
+        return view('layouts.construction');
     }
 
     /**
@@ -24,7 +24,7 @@ class EditionController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.construction');
     }
 
     /**

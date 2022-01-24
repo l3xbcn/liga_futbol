@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\Team;
-use App\Events\ModeloEvento;
+use App\Events\NotifyEvent;
+use App\Models\Edition;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -44,7 +45,10 @@ class GameController extends Controller
     {
         $teams = Team
             ::all();
-        return view('game.create', compact('teams'));
+        $editions = Edition
+            ::all()
+            ->sortByDesc("id");
+        return view('game.create', compact('teams', 'editions'));
     }
 
     /**
@@ -73,7 +77,7 @@ class GameController extends Controller
         $game->goals_visitor = $request->goals_visitor;
         $game->save();
         $mensaje = "Creado partido de la edición $game->edition_id y la jornada $game->match_day";
-        event(new ModeloEvento($mensaje));
+        event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);
     }
 
@@ -104,7 +108,10 @@ class GameController extends Controller
             ::find($id);
         $teams = Team
             ::all();
-        return view('game.edit', compact('game','teams'));
+        $editions = Edition
+            ::all()
+            ->sortByDesc("id");
+        return view('game.edit', compact('game','teams', 'editions'));
     }
 
     /**
@@ -133,8 +140,8 @@ class GameController extends Controller
         $game->goals_local = $request->goals_local;
         $game->goals_visitor = $request->goals_visitor;
         $game->save();
-        $mensaje = "Editado partido de la edición $game->edition_id y la jornada $game->match_day";
-        event(new ModeloEvento($mensaje));
+        $mensaje = "Editado partido con id $game->id";
+        event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);
     }
 
@@ -148,7 +155,7 @@ class GameController extends Controller
     {
         Game::destroy($request->id);
         $mensaje = "Eliminado partido con id: $request->id";
-        event(new ModeloEvento($mensaje));
+        event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);
     }
 

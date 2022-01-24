@@ -15,9 +15,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        \App\Events\ModeloEvento::class => [
-            \App\Listeners\NotificarPorPantalla::class,
-            \App\Listeners\NotificarPorMail::class,
+        \App\Events\NotifyEvent::class => [
+        \App\Listeners\NotificarPorPantalla::class,
         ]
     ];
 

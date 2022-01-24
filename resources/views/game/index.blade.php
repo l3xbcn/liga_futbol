@@ -16,6 +16,7 @@
             <th class="w-1/12 ">ID</th>
             <th class="w-1/12">Edición</th>
             <th class="w-1/12">Jornada</th>
+            <th class="w-1/12">Resultado</th>
             <th class="w-2/12">Equipo local</th>
             <th class="w-2/12">Equipo visitante</th>
             <th class="w-1/12">Goles local</th>
@@ -29,6 +30,16 @@
                 <td>{{ $game->id }}</td>
                 <td>{{ $game->edition_id }}</td>
                 <td>{{ $game->match_day }}</td>
+                <td class="text-center font-black">
+                    @if($game->goals_local == $game->goals_visitor)
+                        <div class="bg-yellow-500">X</div>
+                    @elseif($game->goals_local > $game->goals_visitor)
+                    <div class="bg-blue-500">1</div>
+                    @elseif($game->goals_local < $game->goals_visitor)
+                        <div class="bg-red-500">2</div>
+                    @endif
+                </td>
+                </td>
                 <td>{{ $game->team_local->name }}</td>
                 <td>{{ $game->team_visitor->name }}</td>
                 <td>{{ $game->goals_local }}</td>
@@ -60,6 +71,7 @@
                 <th class="w-1/12 ">ID</th>
                 <th class="w-1/12">Edición</th>
                 <th class="w-1/12">Jornada</th>
+                <th class="w-1/12">Resultado</th>
                 <th class="w-2/12">Equipo local</th>
                 <th class="w-2/12">Equipo visitante</th>
                 <th class="w-1/12">Goles local</th>

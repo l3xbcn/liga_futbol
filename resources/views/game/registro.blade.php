@@ -18,6 +18,17 @@
             <td>{{ $game->match_day }}</td>
         </tr>
         <tr>
+            <td>Resultado</td>
+            <td class="text-center font-black">
+                @if($game->goals_local == $game->goals_visitor)
+                    <div class="bg-yellow-500">X</div>
+                @elseif($game->goals_local > $game->goals_visitor)
+                <div class="bg-blue-500">1</div>
+                @elseif($game->goals_local < $game->goals_visitor)
+                    <div class="bg-red-500">2</div>
+                @endif
+            </td>            
+        <tr>
             <td>Equipo local</td>
             <td>{{ $game->team_local->name }}</td>
         </tr>

@@ -11,69 +11,80 @@ use Tests\TestCase;
 
 class PlayerControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-
-
-    public function test_user_can_index()
+    public function test_user_can_index_player()
     {
-        $response = $this->get('/player');
+        $response = $this->get(route('player.index'));  
 
         $response->assertStatus(200);
     }
 
-    public function test_user_can_edit()
+    public function test_user_can_edit_player()
     {
         $faker = Factory::create();
         $id = $faker->numberBetween(Player::all()->first()->id, Player::all()->last()->id);
-
-        $response = $this->get("/player/$id/edit", [
-            'id' => $id,
-        ]);
+        
+        $response = $this->get(route('player.edit', [
+            'player' => $id,
+        ]));
 
         $response->assertStatus(200);
     }
 
-    public function test_user_can_store()
+    public function test_user_can_store_player()
     {
-        $player = Player::factory()->create();
+        $player = Player::factory()->make();
 
-        $response = $this->post('/player/store', [
+        $response = $this->post(route('player.store', [
+            'player' => $player->id,
             'name' => $player->name,
             'team_id' => $player->team_id,
             'position' => $player->position
-        ]);
+        ]));        
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 
-    public function test_user_can_update()
+    public function test_user_cannot_store_player_without_name()
     {
-        $player = Player::factory()->create();
-        $faker = Factory::create();
+        $player = Player::factory()->make();
 
-        $response = $this->put('/player/update', [
-            'id' => $faker->numberBetween(Player::all()->first()->id, Player::all()->last()->id),
+        $response = $this->post(route('player.store', [
+            'player' => $player->id,
+            'name' => null,
+            'team_id' => $player->team_id,
+            'position' => $player->position
+        ]));        
+
+        $response->assertStatus(302);
+    }    
+
+    public function test_user_can_update_player()
+    {
+        $player = Player::factory()->make();
+        $faker = Factory::create();
+        $id = $faker->numberBetween(Player::all()->first()->id, Player::all()->last()->id);
+
+        $response = $this->patch(route('player.update', [
+            'player' => $id,
+            'id' => $id,
             'name' => $player->name,
             'team_id' => $player->team_id,
             'position' => $player->position
-        ]);
+        ]));
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
     
-    public function test_user_can_destroy()
+    public function test_user_can_destroy_player()
     {
         $faker = Factory::create();
         $id = $faker->numberBetween(Player::all()->first()->id, Player::all()->last()->id);
-        $response = $this->delete("/player/$id", [
+
+        $response = $this->delete(route('player.destroy', [
+            'player' => $id,
             'id' => $id,
-        ]);
+        ]));
 
         $response->assertStatus(200);
     }    
-
 }

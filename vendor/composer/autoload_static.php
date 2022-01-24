@@ -533,7 +533,7 @@ class ComposerStaticInit6d49f857646a4ce1e211a18d51525f1b
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
-        'App\\Events\\ModeloEvento' => __DIR__ . '/../..' . '/app/Events/ModeloEvento.php',
+        'App\\Events\\NotifyEvent' => __DIR__ . '/../..' . '/app/Events/NotifyEvent.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',

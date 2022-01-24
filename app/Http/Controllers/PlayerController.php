@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ModeloEvento;
+use App\Events\NotifyEvent;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -76,7 +76,7 @@ class PlayerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:players,name|min:3|max:50|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|unique:players,name|min:3|max:100',
             'position' => 'required',
             'team_id' => 'required'
         ]);
@@ -87,7 +87,7 @@ class PlayerController extends Controller
         $player->position = $request->position;
         $player->save();
         $mensaje = "Creado player $player->name";
-        event(new ModeloEvento($mensaje));
+        event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);
     }
 
@@ -130,7 +130,7 @@ class PlayerController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|min:3|max:50|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|min:3|max:100',
             'position' => 'required|min:1',
             'team_id' => 'required|min:1'
         ]);
@@ -141,7 +141,7 @@ class PlayerController extends Controller
         $player->position = $request->position;
         $player->save();
         $mensaje = "Editado player $player->name";
-        event(new ModeloEvento($mensaje));
+        event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);
     }
 
@@ -155,7 +155,7 @@ class PlayerController extends Controller
     {
         Player::destroy($request->id);
         $mensaje = "Eliminado player con id: $request->id";
-        event(new ModeloEvento($mensaje));
+        event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);
     }
 }

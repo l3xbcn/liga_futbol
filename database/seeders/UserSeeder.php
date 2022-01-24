@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -17,16 +18,27 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        
+        $faker = Factory::create();
+        
         User::create([
             'name' => 'UsuarioAdmin',
             'email' => 'admin@localhost',
-            'password' => Hash::make('admin')
+            'password' => Hash::make('admin'),
+            'email_verified_at' => $faker->unixTime('now')
         ])->assignRole('Admin');
         User::create([
-            'name' => 'UsuarioEdsitor',
+            'name' => 'UsuarioEditor',
             'email' => 'editor@localhost',
-            'password' => Hash::make('editor')
+            'password' => Hash::make('editor'),
+            'email_verified_at' => $faker->unixTime('now')
         ])->assignRole('Editor');
+        User::create([
+            'name' => 'UsuarioViewer',
+            'email' => 'viewer@localhost',
+            'password' => Hash::make('viewer'),
+            'email_verified_at' => $faker->unixTime('now')
+        ])->assignRole('Viewer');
         User::create([
             'name' => 'UsuarioUno',
             'email' => 'usuariouno@localhost',
