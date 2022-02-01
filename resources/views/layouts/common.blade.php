@@ -134,9 +134,10 @@
                     @yield('title')
                 </div>
                 <div class="content">
-                    @if (in_array(substr(Route::current()->getName(), strpos(Route::current()->getName(), ".") + 1), ['index','store','update']))
-                    @can('edit')
+                    @if (Route::current() && in_array(substr(Route::current()->getName(), strpos(Route::current()->getName(), ".") + 1), ['index','store','update']))
                     <a href="/{{ strtok(Route::current()->getName(), '.') }}/create"><button class="create float-right">Crear nuevo</button></a>
+                    @endif
+                    @can('edit')
                     @endcan
                     <form action="{{ URL::current() }}" method="get" role="search" class="search">
                         {{ csrf_field() }}
@@ -152,7 +153,6 @@
                                 </div>
                             </div>
                     </form>
-                    @endif
                     @yield('content')
                 </div>
             </main>

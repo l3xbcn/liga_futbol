@@ -25,8 +25,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
-
 Route::get('/', [PlayerController::class, 'index'])->name('home');
 
 // Los usuarios registrados sólo pueden ver los jugadores y equipos
@@ -72,3 +70,9 @@ Route::resource('edition', EditionController::class)->names('edition');
 Route::get('/404', function () {
     return abort(404);
 })->name('404');
+
+require __DIR__.'/auth.php';
+
+Route::fallback(function () {
+    return view("404");
+});
