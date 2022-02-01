@@ -134,9 +134,9 @@
                     @yield('title')
                 </div>
                 <div class="content">
-                    @if (str_contains(Route::current()->getName(),'.index'))
+                    @if (in_array(substr(Route::current()->getName(), strpos(Route::current()->getName(), ".") + 1), ['index','store','update']))
                     @can('edit')
-                    <a href="{{ URL::current() }}/create"><button class="create float-right">Crear nuevo</button></a>
+                    <a href="/{{ strtok(Route::current()->getName(), '.') }}/create"><button class="create float-right">Crear nuevo</button></a>
                     @endcan
                     <form action="{{ URL::current() }}" method="get" role="search" class="search">
                         {{ csrf_field() }}
