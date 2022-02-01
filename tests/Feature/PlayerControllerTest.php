@@ -11,6 +11,8 @@ use Tests\TestCase;
 
 class PlayerControllerTest extends TestCase
 {
+    use UserControllerTest;
+    
     public function test_user_can_index_player()
     {
         $response = $this->get(route('player.index'));  
@@ -20,6 +22,8 @@ class PlayerControllerTest extends TestCase
 
     public function test_user_can_edit_player()
     {
+        $this->test_user_can_auth();
+        
         $faker = Factory::create();
         $id = $faker->numberBetween(Player::all()->first()->id, Player::all()->last()->id);
         
@@ -32,6 +36,8 @@ class PlayerControllerTest extends TestCase
 
     public function test_user_can_store_player()
     {
+        $this->test_user_can_auth();
+
         $player = Player::factory()->make();
 
         $response = $this->post(route('player.store', [
@@ -46,6 +52,8 @@ class PlayerControllerTest extends TestCase
 
     public function test_user_cannot_store_player_without_name()
     {
+        $this->test_user_can_auth();
+        
         $player = Player::factory()->make();
 
         $response = $this->post(route('player.store', [
@@ -60,6 +68,8 @@ class PlayerControllerTest extends TestCase
 
     public function test_user_can_update_player()
     {
+        $this->test_user_can_auth();
+        
         $player = Player::factory()->make();
         $faker = Factory::create();
         $id = $faker->numberBetween(Player::all()->first()->id, Player::all()->last()->id);
@@ -77,6 +87,8 @@ class PlayerControllerTest extends TestCase
     
     public function test_user_can_destroy_player()
     {
+        $this->test_user_can_auth();
+        
         $faker = Factory::create();
         $id = $faker->numberBetween(Player::all()->first()->id, Player::all()->last()->id);
 

@@ -10,6 +10,8 @@ use Faker\Factory;
 
 class TeamControllerTest extends TestCase
 {
+    use UserControllerTest;
+        
     public function test_user_can_index_team()
     {
         $response = $this->get(route('team.index'));  
@@ -19,6 +21,8 @@ class TeamControllerTest extends TestCase
 
     public function test_user_can_edit_team()
     {
+        $this->test_user_can_auth();
+        
         $faker = Factory::create();
         $id = $faker->numberBetween(Team::all()->first()->id, Team::all()->last()->id);
         
@@ -31,6 +35,8 @@ class TeamControllerTest extends TestCase
 
     public function test_user_can_store_team()
     {
+        $this->test_user_can_auth();
+        
         $team = Team::factory()->make();
 
         $response = $this->post(route('team.store', [
@@ -44,6 +50,8 @@ class TeamControllerTest extends TestCase
 
     public function test_user_cannot_store_team_without_name()
     {
+        $this->test_user_can_auth();
+        
         $team = Team::factory()->make();
 
         $response = $this->post(route('team.store', [
@@ -57,6 +65,8 @@ class TeamControllerTest extends TestCase
 
     public function test_user_can_update_team()
     {
+        $this->test_user_can_auth();
+        
         $team = Team::factory()->make();
         $faker = Factory::create();
         $id = $faker->numberBetween(Team::all()->first()->id, Team::all()->last()->id);
@@ -73,6 +83,8 @@ class TeamControllerTest extends TestCase
     
     public function test_user_can_destroy_team()
     {
+        $this->test_user_can_auth();
+        
         $faker = Factory::create();
         $id = $faker->numberBetween(Team::all()->first()->id, Team::all()->last()->id);
 

@@ -27,9 +27,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/', function () {
-    return redirect(request()->getSchemeAndHttpHost().'/player' );
-});
+Route::get('/', [PlayerController::class, 'index'])->name('home');
 
 // Los usuarios registrados sólo pueden ver los jugadores y equipos
 // Los registrados con el rol por defecto de Viewer (permiso view) pueden ver adenás los resultados de los partidos
