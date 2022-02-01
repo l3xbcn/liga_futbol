@@ -29,10 +29,9 @@
                 <a href="{{ route('user.edit',$user->id) }}" class="bg-yellow-500">
                     <i class="fas fa-edit"></i>
                 </a>
-                <form class="inline-block" method="POST" action="{{ route('user.destroy') }}">
+                <form class="inline-block" method="POST" action="{{ route('user.destroy', $user->id) }}">
                     @csrf  
                     @method("delete")
-                    <input type="hidden" name="id" value="{{ ( $user->id ?? null ) }}" />
                     <a class="bg-red-500" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
                         <i class="fas fa-trash"></i>
                     </a>                        

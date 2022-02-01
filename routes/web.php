@@ -25,6 +25,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+require __DIR__.'/auth.php';
+
 Route::get('/', [PlayerController::class, 'index'])->name('home');
 
 // Los usuarios registrados sólo pueden ver los jugadores y equipos
@@ -62,17 +64,11 @@ Route::post('user/store', [UserController::class, 'store'])->middleware('can:adm
 Route::get('user', [UserController::class, 'index'])->middleware('can:admin')->name('user.index');
 Route::get('user/{user}', [UserController::class, 'show'])->middleware('can:admin')->name('user.show');
 Route::get('user/{user}/edit', [UserController::class, 'edit'])->middleware('can:admin')->name('user.edit');
-Route::put('user/update', [UserController::class, 'update'])->middleware('can:admin')->name('user.update');
-Route::delete('user/destroy', [UserController::class, 'destroy'])->middleware('can:admin')->name('user.destroy');
+Route::put('user/{user}', [UserController::class, 'update'])->middleware('can:admin')->name('user.update');
+Route::delete('user/{user}', [UserController::class, 'destroy'])->middleware('can:admin')->name('user.destroy');
 
 Route::resource('edition', EditionController::class)->names('edition');
 
 Route::get('/404', function () {
     return abort(404);
 })->name('404');
-
-require __DIR__.'/auth.php';
-
-Route::fallback(function () {
-    return view("404");
-});

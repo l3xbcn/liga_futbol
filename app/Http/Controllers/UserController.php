@@ -100,14 +100,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($id, Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|min:3|max:50|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|email',
             'password' => 'required|min:5|max:50'
         ]);
-        $user = User::find($request->id);
+        $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
@@ -129,9 +129,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
-        User::destroy($request->id);
+        User::destroy($id);
         $mensaje = "Eliminado user con id: $request->id";
         return $this->index($request, $mensaje);
     }

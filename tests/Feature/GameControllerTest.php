@@ -15,6 +15,8 @@ class GameControllerTest extends TestCase
 
     public function test_user_can_index_game()
     {
+        $this->test_user_can_auth(); // necesita autenticación también
+
         $response = $this->get(route('game.index'));  
 
         $response->assertStatus(200);

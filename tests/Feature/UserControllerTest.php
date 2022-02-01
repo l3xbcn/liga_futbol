@@ -2,6 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
+
 trait UserControllerTest
 {
     /**
@@ -10,12 +15,14 @@ trait UserControllerTest
      * @return void
      */
     function test_user_can_auth() {
-        $response = $this->post(route('login'), [
-            'email' => 'admin@localhost',
-            'password' => 'admin'
-        ]);
 
-        $response->assertRedirect(route('home'));
+        $user=User::find(1); //admin
+
+        $response = $this->actingAs($user)
+            ->withSession(['banned' => false])
+            ->get('/');        
+
+        $response->assertStatus(200);
     }
 
 }

@@ -76,7 +76,6 @@ class PlayerControllerTest extends TestCase
 
         $response = $this->patch(route('player.update', [
             'player' => $id,
-            'id' => $id,
             'name' => $player->name,
             'team_id' => $player->team_id,
             'position' => $player->position
@@ -91,10 +90,9 @@ class PlayerControllerTest extends TestCase
         
         $faker = Factory::create();
         $id = $faker->numberBetween(Player::all()->first()->id, Player::all()->last()->id);
-
+        
         $response = $this->delete(route('player.destroy', [
             'player' => $id,
-            'id' => $id,
         ]));
 
         $response->assertStatus(200);

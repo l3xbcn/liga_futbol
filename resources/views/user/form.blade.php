@@ -1,13 +1,13 @@
 <?php
     if ( isset ($user->id) ) {
         $method = 'put';
-        $action = '/user/update';
+        $action = "$user->id";
     } else {
         $method = 'post';
-        $action = '/user/store';
+        $action = 'store';
     }    
 ?>
-<form method="POST" action="<?=$action?>">
+<form method="POST" action="{{ route('user.index') }}/<?=$action?>">
 <input type="hidden" name="id" value="{{ ( $user->id ?? null ) }}">
 @csrf  
 @method("$method")

@@ -21,5 +21,6 @@ class VerifyCsrfToken extends Middleware
         'game/destroy',
         'game/update',
         'game/store',
+        'login',
     ];
 }
