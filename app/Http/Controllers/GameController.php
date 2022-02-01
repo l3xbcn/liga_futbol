@@ -121,7 +121,7 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($id, Request $request)
     {
         $validated = $request->validate([
             'edition_id' => 'required',
@@ -132,7 +132,7 @@ class GameController extends Controller
             'goals_visitor' => 'required'
         ]);
         $game = Game
-            ::find($request->id);
+            ::find($id);
         $game->edition_id = $request->edition_id;
         $game->match_day = $request->match_day;
         $game->team_local_id = $request->team_local_id;
@@ -151,9 +151,9 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-        public function destroy(Request $request)
+        public function destroy($id, Request $request)
     {
-        Game::destroy($request->id);
+        Game::destroy($id);
         $mensaje = "Eliminado partido con id: $request->id";
         event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);

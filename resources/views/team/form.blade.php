@@ -1,7 +1,7 @@
 <?php
     if ( isset ($team->id) ) {
         $method = 'put';
-        $action = 'update';
+        $action = "$team->id";
     } else {
         $method = 'post';
         $action = 'store';

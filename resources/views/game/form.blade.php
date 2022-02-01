@@ -1,7 +1,7 @@
 <?php
     if ( isset ($game->id) ) {
         $method = 'put';
-        $action = 'update';
+        $action = "$game->id";
     } else {
         $method = 'post';
         $action = 'store';

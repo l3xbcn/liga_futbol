@@ -127,7 +127,7 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($id, Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|min:3|max:100',
@@ -135,7 +135,7 @@ class PlayerController extends Controller
             'team_id' => 'required|min:1'
         ]);
         $player = Player
-            ::find($request->id);
+            ::find($id);
         $player->team_id = $request->team_id;
         $player->name = $request->name;
         $player->position = $request->position;
@@ -151,9 +151,9 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id,Request $request)
     {
-        Player::destroy($request->id);
+        Player::destroy($id);
         $mensaje = "Eliminado player con id: $request->id";
         event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);

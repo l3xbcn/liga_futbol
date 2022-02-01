@@ -97,14 +97,14 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($id, Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|min:3|max:100',
             'stadium' => 'required|min:3|max:100'
         ]);
         $team = Team
-            ::find($request->id);
+            ::find($id);
         $team->name = $request->name;
         $team->stadium = $request->stadium;
         $team->save();
@@ -119,9 +119,9 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
-        Team::destroy($request->id);
+        Team::destroy($id);
         $mensaje = "Eliminado team con id: $request->id";
         event(new NotifyEvent($mensaje));
         return $this->index($request, $mensaje);
